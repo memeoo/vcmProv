@@ -1,0 +1,117 @@
+.title-layer{
+    margin-top: 10px;   
+    font-weight: bolder;
+    font-size: 25px; 
+}
+.new-exam-btn{
+    width: 200px;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px; 
+}
+.list-exam-main{
+    width: 600px;
+}
+.set-exam-main{
+    width: 660px;
+    padding: 18px;
+}
+.question-area{
+    border: 2px solid #ddd;
+    border-radius: 0.215rem;
+    padding: 10px;
+}
+.question{
+    padding: 6px;
+}
+.img-upload-pic{
+    width: 350px;
+    height: 220px;
+    border: 2px solid #ddd;
+    border-radius: 0.215rem;
+    margin-top:10px;
+}
+.img-upload-chart{
+    width: 550px;
+    height: 320px;
+    border: 2px solid #ddd;
+    border-radius: 0.215rem;
+    margin-top:10px;
+}
+
+.audio-question{
+    display: inline-block;
+    padding:5px;
+    margin-right: 20px;
+}
+.inner-question{
+    margin-bottom: 8px;
+}
+.btn-area{
+   margin-top: 35px;
+   width: 550px;
+   margin: 0 auto;
+   text-align: center;  
+}
+.top-upper-layer{
+    margin-top: 20px;
+    margin-left: 15px;
+}
+.examed-lists{
+    margin-left: 15px;
+}
+
+.each-layer{
+    padding: 12px;
+}
+.each-layer-last{
+    padding: 12px;
+    margin-bottom: 25px;
+}
+.inpBox{
+    margin-left: 13px;
+}
+.inpBox1{
+    margin-left: 13px;
+
+}
+.inpBox2{
+    margin-left: 13px;
+
+}
+.inpBox3{
+    margin-left: 13px;
+    margin-right: 13px;
+
+}
+.calrenda{
+    margin-left: 15px;
+    margin-top: 5px;
+}
+.dayDisplay{
+    margin-left: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    font-style: italic;
+}
+.meeting-head{
+    font-weight: bolder;
+    font-size: 35px;
+    /* font-style: initial; */
+    margin-left: 30px;
+
+    margin-top: 35px;
+    margin-bottom: 10px;    
+}
+.empty-layer{
+    height: 30px;
+}
+
+.set-time{
+    display: inline !important;
+    min-width: 120px !important;
+}
+.time-layer{
+    flex-direction: row;
+    margin-left: 15px;
+}
