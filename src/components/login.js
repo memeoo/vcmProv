@@ -47,7 +47,7 @@ class Login extends Component {
       console.log(" ######## ", response.data[0]);
       this.props.history.push(
         {
-          pathname: '/listExam',
+          pathname: '/listMeeting',
           state: {name: response.data[0].name, id: response.data[0].mail}
         });
 

@@ -10,7 +10,7 @@ import 'react-times/css/classic/default.css';
 
 
 const fileData = new FormData();
-class SetExam extends Component {
+class CheckSubmittedMeeting extends Component {
     
     constructor(props) {
         super(props);
@@ -176,7 +176,7 @@ class SetExam extends Component {
         return (
             <div className="set-exam-main">
             {/* <Form onSubmit={this.saveMeeting}> */}
-            <div className="meeting-head">미팅 공고를 올려주세요</div>
+            <div className="meeting-head">미팅 공고 수정</div>
             <Form encType="multipart/form-data" onSubmit={this.saveMeeting}>
                 <div className='each-layer'>
                     <Label for="mtNm">공고명</Label>
@@ -250,4 +250,4 @@ class SetExam extends Component {
     }
 }
 
-export default withRouter(SetExam);
+export default withRouter(CheckSubmittedMeeting);

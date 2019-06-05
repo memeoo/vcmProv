@@ -9,8 +9,7 @@ import TimePicker from 'react-times';
 import 'react-times/css/classic/default.css';
 
 
-const fileData = new FormData();
-class SetExam extends Component {
+class ModifyMeeting extends Component {
     
     constructor(props) {
         super(props);
@@ -27,6 +26,31 @@ class SetExam extends Component {
             orgPlace:"",
         }
 
+    }
+
+    componentDidMount(){
+        console.log(" init Data => ", this.props.location.state.data);
+        let meeting = this.props.location.state.data;
+        console.log(" mtName = ", meeting.mtName);
+        // this.setState({mtNm:meeting.mtName});
+        document.getElementById('mtNm').value = meeting.mtName;
+        document.getElementById('orgNm').value = meeting.mtOrgName;
+        document.getElementById('mtCont').value = meeting.mtContent;
+        document.getElementById('mtCondition').value = meeting.mtQualify;
+        document.getElementById('mtEtc').value = meeting.mtEtc;
+        document.getElementById('mtMoney').value = meeting.mtMoney;
+        document.getElementById('orgPlace').value = meeting.mtAddress;
+
+        this.setState({selectedStartTime:meeting.startTime})
+        this.setState({selectedEndTime:meeting.endTime})
+        this.setState({date:this.getJSDate(meeting.mtDay)})
+
+    }
+
+    getJSDate= (data) =>{
+        let eachDate = new Date(Date.parse(data));
+        // let date = eachDate.getMonth()+1 + "월 " + eachDate.getDate()+ "일";
+        return eachDate;
     }
 
     seePreview() {
@@ -119,36 +143,6 @@ class SetExam extends Component {
         })
     }
 
-    imageUpload = (event)=> {
-        console.log("Image uploading!");
-        let fileInputDom = null;
-        var reader = new FileReader();
-        let compId = event.target.id;
-        console.log(" compId => ", event.target.id); 
-        if(compId == "uploadImgPic"){
-            fileInputDom = document.getElementsByName("q3")[0];
-        }else{
-            fileInputDom = document.getElementsByName("qChart")[0];
-        }
-
-        fileInputDom.click();
-        fileInputDom.onchange = function(){
-            if(fileInputDom.files){
-                let fileList = fileInputDom.files;
-                console.log(" files ===> ",fileList[0]);
-                fileData.append(compId, fileList[0]);
-                
-     
-                reader.readAsDataURL(fileList[0]);
-                reader.onload = function(){
-                    document.getElementById(compId).src = reader.result;
-                };   
-            }
-            // console.log(" selectedFile => ", selectedFiles);
-        }     
-    }
-
-
     onInputTextChangeHandler = event =>{
         console.log(" @@@@ => " , event.target.value);
         if(event.target.name == "mtNm"){
@@ -173,18 +167,21 @@ class SetExam extends Component {
     }
 
     render() {
+
         return (
             <div className="set-exam-main">
             {/* <Form onSubmit={this.saveMeeting}> */}
-            <div className="meeting-head">미팅 공고를 올려주세요</div>
+            <div className="meeting-head">미팅 공고 수정</div>
             <Form encType="multipart/form-data" onSubmit={this.saveMeeting}>
                 <div className='each-layer'>
                     <Label for="mtNm">공고명</Label>
-                    <Input className='inpBox1' type='text' id="mtNm" name='mtNm' size='70' value={this.state.inputVal} onChange={this.onInputTextChangeHandler}></Input>
+                    <Input className='inpBox1' type='text' id="mtNm" name='mtNm' size='70' onChange={this.onInputTextChangeHandler}>
+                    </Input>
                 </div>
                 <div className='each-layer'>
                     <Label for="orgNm">기관명</Label>
-                    <Input className='inpBox2' type='text' id="orgNm" name='orgNm' onChange={this.onInputTextChangeHandler}>></Input>
+                    <Input className='inpBox2' type='text' id="orgNm" name='orgNm' onChange={this.onInputTextChangeHandler}>
+                    </Input>
                 </div>
                 <div className='each-layer'>
                     <Label for="mtCont">공고 내용</Label>
@@ -250,4 +247,4 @@ class SetExam extends Component {
     }
 }
 
-export default withRouter(SetExam);
+export default withRouter(ModifyMeeting);
