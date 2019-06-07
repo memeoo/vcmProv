@@ -1,0 +1,40 @@
+.whole-content{
+    width: 650px;
+    margin-left: 10px;
+}
+.meeting-content-title{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 25px;
+    margin-left: 15px;
+    font-size: 21px;
+}
+.meeting-content{
+    padding: 10px;
+    border: solid 2px blue;
+    border-radius: 5px/5px;
+    margin: 10px;
+    width: 580px;
+    height: 305px;
+    overflow:auto;
+    background-color: aliceblue
+}
+.each-p{
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+.modify-meeting{
+    margin-right: 60px;
+}
+.tab-menu{
+    margin-left: 20px;
+}
+.list-card{
+    margin-top: 11.5px;
+    /* background-image: linear-gradient(whitesmoke, white); */
+    border: 1px solid silver
+}
+.examed-lists{
+    margin-left: 15px;
+}

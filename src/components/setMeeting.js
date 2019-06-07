@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../css/exam.css';
-import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter,Dropdown, DropdownToggle, DropdownMenu, DropdownItem  } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import logo from '../asset/tossuplog.png'
 import axios, { post } from 'axios';
@@ -25,12 +25,34 @@ class SetExam extends Component {
             mtEtc:"",
             mtMoney:"",
             orgPlace:"",
+            dropdownOpen: false,
+            dropdownOpenPlace: false,
+            meetingKind: "심사",
+            meetingArea: "한강 이북",
         }
 
     }
 
-    seePreview() {
-        console.log("See Preview");
+    toggleMeetingKind = () => {
+        this.setState(prevState => ({
+          dropdownOpen: !prevState.dropdownOpen
+        }));
+    }
+
+    toggleMeetingArea = () => {
+        this.setState(prevState => ({
+            dropdownOpenPlace: !prevState.dropdownOpenPlace
+        }));
+    }
+
+    setMeetingKind = (kind, event) => {
+        console.log(" kind => ", kind);
+        this.setState({meetingKind: kind});
+    }
+
+    setMeetingArea = (area, event) => {
+        console.log(" area => ", area);
+        this.setState({meetingArea: area});
     }
 
     onChange = date => {
@@ -56,9 +78,7 @@ class SetExam extends Component {
         console.log(" focusStatue => ", focusStatue);
     }
 
-    saveMeeting = (event) => {
-        event.preventDefault()
-      
+    setData(isSubmit){
         let data = {};
         data.mtNm = this.state.mtNm;
         data.orgNm = this.state.orgNm;
@@ -68,15 +88,33 @@ class SetExam extends Component {
         data.mtMoney = this.state.mtMoney;
         data.orgPlace = this.state.orgPlace;
         data.uploader= this.props.location.state.id;
+        
+        data.mtKind = this.state.meetingKind;
+        data.mtArea = this.state.meetingArea;
+
         data.timeStart = this.state.selectedStartTime;
         data.timeEnd = this.state.selectedEndTime;
-        data.date = this.state.date.toISOString().slice(0, 19).replace('T', ' ');
 
-        console.log(" data => ", data);
+        let date = this.state.date;
+     
+        let convertedDate = date.getUTCFullYear() + '-' +
+        ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+        ('00' + (date.getDate())).slice(-2) + ' ' + 
+        ('00' + date.getUTCHours()).slice(-2) + ':' + 
+        ('00' + date.getUTCMinutes()).slice(-2) + ':' + 
+        ('00' + date.getUTCSeconds()).slice(-2);
 
-        // id를 인자로 넘겨서 id값이 "" 이면 새 출제, 
-        // 아니면, 해당 id 문제 수정 
-        // 일단 생성 되면 listExam에 보이기. 
+        data.date = convertedDate;
+        data.mtId = this.state.mtId;
+        data.insertOrUpdate = "insert";
+        data.isSubmit = isSubmit;
+
+        return data;
+    }
+    saveNewMeeting = (event) => {
+        event.preventDefault();
+        console.log("Save New Exam!");
+        let data = this.setData("NO");
         axios.post('http://localhost:3100/saveMeeting/', data).then(response => {
             console.log(" res text >>>> ", response);
             if (response.status === 200) {
@@ -87,28 +125,10 @@ class SetExam extends Component {
         })
     }
 
-    submitNewExam = (event) => {
+    submitNewMeeting = (event) => {
+        event.preventDefault();
         console.log("Submit New Exam!");
-        event.preventDefault()
-        let data = {};
-        data.mtNm = this.state.mtNm;
-        data.orgNm = this.state.orgNm;
-        data.mtCont = this.state.mtCont;
-        data.mtCondition = this.state.mtCondition;
-        data.mtEtc = this.state.mtEtc;
-        data.mtMoney = this.state.mtMoney;
-        data.orgPlace = this.state.orgPlace;
-        data.uploader= this.props.location.state.id;
-        data.timeStart = this.state.selectedStartTime;
-        data.timeEnd = this.state.selectedEndTime;
-        data.date = this.state.date.toISOString().slice(0, 19).replace('T', ' ');
-        data.isSubmit = 1;
-
-        console.log(" data => ", data);
-
-        // id를 인자로 넘겨서 id값이 "" 이면 새 출제, 
-        // 아니면, 해당 id 문제 수정 
-        // 일단 생성 되면 listExam에 보이기. 
+        let data = this.setData("YES");
         axios.post('http://localhost:3100/submitMeeting/', data).then(response => {
             console.log(" res text >>>> ", response);
             if (response.status === 200) {
@@ -117,35 +137,6 @@ class SetExam extends Component {
         }).catch(exception => {
             console.log(" ex text >>>> ", exception);
         })
-    }
-
-    imageUpload = (event)=> {
-        console.log("Image uploading!");
-        let fileInputDom = null;
-        var reader = new FileReader();
-        let compId = event.target.id;
-        console.log(" compId => ", event.target.id); 
-        if(compId == "uploadImgPic"){
-            fileInputDom = document.getElementsByName("q3")[0];
-        }else{
-            fileInputDom = document.getElementsByName("qChart")[0];
-        }
-
-        fileInputDom.click();
-        fileInputDom.onchange = function(){
-            if(fileInputDom.files){
-                let fileList = fileInputDom.files;
-                console.log(" files ===> ",fileList[0]);
-                fileData.append(compId, fileList[0]);
-                
-     
-                reader.readAsDataURL(fileList[0]);
-                reader.onload = function(){
-                    document.getElementById(compId).src = reader.result;
-                };   
-            }
-            // console.log(" selectedFile => ", selectedFiles);
-        }     
     }
 
 
@@ -168,16 +159,12 @@ class SetExam extends Component {
         }
     }
 
-    handleChange =event => {
-        this.setState({inputVal: event.target.value});
-    }
-
     render() {
         return (
             <div className="set-exam-main">
             {/* <Form onSubmit={this.saveMeeting}> */}
             <div className="meeting-head">미팅 공고를 올려주세요</div>
-            <Form encType="multipart/form-data" onSubmit={this.saveMeeting}>
+            <Form encType="multipart/form-data">
                 <div className='each-layer'>
                     <Label for="mtNm">공고명</Label>
                     <Input className='inpBox1' type='text' id="mtNm" name='mtNm' size='70' value={this.state.inputVal} onChange={this.onInputTextChangeHandler}></Input>
@@ -199,6 +186,39 @@ class SetExam extends Component {
                     <Input className='inpBox' type='textarea' id="mtEtc" name='mtEtc' onChange={this.onInputTextChangeHandler}>></Input>
                 </div>
                 <div className='each-layer'>
+                    <Label>미팅 종류/지역</Label>
+                        <div className='time-layer'>
+                            <span>미팅 종류</span>
+                            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggleMeetingKind} className='meetingArea'>
+                                <DropdownToggle caret>
+                                    {this.state.meetingKind}
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                    <DropdownItem onClick={(event) => this.setMeetingKind("심사", event)}>심사</DropdownItem>
+                                    <DropdownItem onClick={(event) => this.setMeetingKind("멘토링", event)}>멘토링</DropdownItem>
+                                    <DropdownItem onClick={(event) => this.setMeetingKind("강연/기타", event)}>강연/기타</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                            
+                            <span style={{marginLeft: '15px'}}>미팅 지역</span>
+                            <Dropdown isOpen={this.state.dropdownOpenPlace} toggle={this.toggleMeetingArea} className='meetingArea'>
+                                <DropdownToggle caret>
+                                    {this.state.meetingArea} 
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                    <DropdownItem onClick={(event) => this.setMeetingArea("한강 이북", event)}>한강 이북</DropdownItem>
+                                    <DropdownItem onClick={(event) => this.setMeetingArea("한강 이남", event)}>한강 이남</DropdownItem>
+                                    <DropdownItem onClick={(event) => this.setMeetingArea("경기", event)}>경기</DropdownItem>
+                                    <DropdownItem onClick={(event) => this.setMeetingArea("충청", event)}>충청</DropdownItem>
+                                    <DropdownItem onClick={(event) => this.setMeetingArea("기타", event)}>기타</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+
+                        </div>
+
+                </div>
+
+                <div className='each-layer'>
                     <Label for="mtDay">날짜</Label> <span className="dayDisplay">{this.state.date.getMonth()+1}월 {this.state.date.getDate()}일</span>
                     <Calendar
                         className='calrenda'
@@ -209,18 +229,16 @@ class SetExam extends Component {
                 <div className='each-layer'>
                     <Label for="mtTime">시각</Label>
                     <div className='time-layer'>
-                        <span>시작 시간</span>
+                        <span className="time-title">시작 시간</span>
                         <TimePicker
                             time = {this.state.selectedStartTime} 
                             theme="classic"
                             onFocusChange={this.onFocusChange}
                             onTimeChange={this.onTimeChangeStart}
                         />
-                    </div>
-                    <div className='time-layer'>
-                        <span>종료 시간</span>
-                        <TimePicker 
-                            time = {this.state.selectedEndTime} 
+                        <span className="time-title">종료 시간</span>
+                        <TimePicker
+                            time={this.state.selectedEndTime}
                             theme="classic"
                             onFocusChange={this.onFocusChange}
                             onTimeChange={this.onTimeChangeEnd}
@@ -237,10 +255,10 @@ class SetExam extends Component {
                 </div>
                 <div className="btn-area">
                     <div className="audio-question">
-                        <Button color="secondary" type="submit" onClick={this.saveMeeting}>임시저장(Save)</Button>
+                        <Button color="secondary" type="submit" onClick={this.saveNewMeeting}>임시저장(Save)</Button>
                     </div>
                     <div className="audio-question">
-                        <Button color="secondary" onClick={this.submitNewExam}>제 출(Submit)</Button>
+                        <Button color="secondary" onClick={this.submitNewMeeting}>제 출(Submit)</Button>
                     </div>
                 </div>
             </Form>

@@ -14,10 +14,6 @@ import { Card } from '@material-ui/core';
 
 class ListMeeting extends Component {
 
-    wrapperDivList = null;
-    meetingDataSaved = [];
-    meetingDataSubmitted = [];
-
     constructor(props) {
         super(props);
         console.log(" ####################### ", this.props);
@@ -47,7 +43,7 @@ class ListMeeting extends Component {
             
             for(let i=0; i< meetings.length; i++){
                 console.log(" meetings 33 => ", meetings[i].isSubmit);
-                if(meetings[i].isSubmit = 'NO'){
+                if(meetings[i].isSubmit === "NO"){
                     let joined = this.state.meetingDataSaved.concat(meetings[i]);
                     this.setState({meetingDataSaved:joined})
                    
@@ -57,7 +53,8 @@ class ListMeeting extends Component {
                 }
             }
 
-            console.log(" meetings 11 => ", this.state.meetingDataSaved);
+            console.log(" meetings meetingDataSaved => ", this.state.meetingDataSaved);
+            console.log(" meetings meetingDataSubmitted => ", this.state.meetingDataSubmitted);
         });
 
     }
@@ -91,16 +88,19 @@ class ListMeeting extends Component {
             });
     }
 
-    meetingSubmittedListClickHandler = (event) => {
+    meetingSubmittedListClickHandler = (index, event) => {
+        console.log(" index => ", index);
+        console.log(" event => ", event);
 
         this.props.history.push(
             {
-                pathname: '/modifyMeeting',
+                pathname: '/checkSubmittedMeeting',
                 state: {
                     id: this.props.location.state.id,
-                    data: this.state.meetingDataSubmitted
+                    data: this.state.meetingDataSubmitted[index]
                 }
-            });
+            }
+        );
     }
 
 
@@ -148,8 +148,8 @@ class ListMeeting extends Component {
                     <TabPane tabId="2">
                         <div className="examed-lists">
                             <ListGroup>
-                                {this.state.meetingDataSubmitted.map(data =>
-                                    <ListGroupItem tag="button" action className='list-card' onClick={this.meetingSubmittedListClickHandler} >
+                                {this.state.meetingDataSubmitted.map((data,index) =>
+                                    <ListGroupItem tag="button" action className='list-card' onClick={(event) => this.meetingSubmittedListClickHandler(index, event)} >
                                         <ListGroupItemHeading>{data.mtName}</ListGroupItemHeading>
                                         <ListGroupItemText>{data.mtContent}</ListGroupItemText>
                                         <ListGroupItemText>{this.getJSDate(data.mtDay)}</ListGroupItemText>
