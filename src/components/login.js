@@ -66,12 +66,13 @@ class Login extends Component {
     let spass = event.target.spass.value;
     let repass = event.target.pass_re.value;
     let sname = event.target.sname.value;
+    let phoneNumber = event.target.phoneNumber.value;
     let smail = event.target.smail.value;
 
     console.log(event.target.sid.value);
     console.log(event.target.spass.value);
     console.log(event.target.pass_re.value);
-    console.log(event.target.sname.value);
+    console.log(event.target.phoneNumber.value);
     console.log(event.target.smail.value);
 
     if (spass !== repass) {
@@ -84,7 +85,7 @@ class Login extends Component {
     }
 
     axios.post('http://localhost:3100/signup/', 
-       { id: sid, pass: spass, name: sname, smail: smail }
+       { id: sid, pass: spass, name: sname, smail: smail, phoneNumber:phoneNumber}
     ).then(response => {
       console.log(" res >>>> ", response);
       if(response.status === 200){
@@ -123,7 +124,7 @@ class Login extends Component {
         </div>
         <div>
           <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-            <ModalHeader toggle={this.toggle}>Membership (as an examiner)</ModalHeader>
+            <ModalHeader toggle={this.toggle}>회원 가입</ModalHeader>
 
             <Form onSubmit={this.doSignup}>
               <ModalBody>
@@ -144,9 +145,14 @@ class Login extends Component {
                   <Input type="email" name="smail" id="semaile" maxLength="35" />
                 </FormGroup>
                 <FormGroup>
+                  <Label for="name">전화 번호</Label>
+                  <Input type="text" name="phoneNumber" id="phoneNumber" maxLength="13" />
+                </FormGroup>
+                <FormGroup>
                   <Label for="name">사용할 별명</Label>
                   <Input type="text" name="sname" id="snm" maxLength="20" />
                 </FormGroup>
+
               </ModalBody>
               <ModalFooter>
                 <Button color="primary" type="submit">제출</Button>{' '}
