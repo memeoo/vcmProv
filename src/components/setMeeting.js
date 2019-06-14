@@ -7,6 +7,7 @@ import axios, { post } from 'axios';
 import Calendar from 'react-calendar';
 import TimePicker from 'react-times';
 import 'react-times/css/classic/default.css';
+import comm from './common';
 
 
 const fileData = new FormData();
@@ -115,7 +116,7 @@ class SetExam extends Component {
         event.preventDefault();
         console.log("Save New Exam!");
         let data = this.setData("NO");
-        axios.post('http://localhost:3100/saveMeeting/', data).then(response => {
+        axios.post(comm.SERVER_URL+comm.SERVER_PORT+'/saveMeeting/', data).then(response => {
             console.log(" res text >>>> ", response);
             if (response.status === 200) {
                 console.log(" data => ", data);
@@ -129,7 +130,7 @@ class SetExam extends Component {
         event.preventDefault();
         console.log("Submit New Exam!");
         let data = this.setData("YES");
-        axios.post('http://localhost:3100/submitMeeting/', data).then(response => {
+        axios.post(comm.SERVER_URL+comm.SERVER_PORT+'/submitMeeting/', data).then(response => {
             console.log(" res text >>>> ", response);
             if (response.status === 200) {
                 console.log(" data => ", data);

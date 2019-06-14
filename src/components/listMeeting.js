@@ -11,6 +11,8 @@ import { Button, ListGroup, ListGroupItem, Badge, ListGroupItemHeading, ListGrou
 import axios from 'axios';
 import { element } from 'prop-types';
 import { Card } from '@material-ui/core';
+import comm from './common';
+
 
 class ListMeeting extends Component {
 
@@ -36,7 +38,7 @@ class ListMeeting extends Component {
     componentDidMount(){
         let provId = this.props.location.state.id;
         console.log(" id => ", provId);
-        axios.get('http://localhost:3100/getMeetings/',{params:{id: provId}}).then(res => {
+        axios.get(comm.SERVER_URL+comm.SERVER_PORT+'/getMeetings/',{params:{id: provId}}).then(res => {
             console.log(" res => ", res);
             let meetings = res.data;
          
