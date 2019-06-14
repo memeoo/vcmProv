@@ -46,7 +46,7 @@ class Login extends Component {
       return;
     }
 
-    axios.get('http://localhost:3100/login/', {
+    axios.get(comm.SERVER_URL+comm.SERVER_PORT+'/login/', {
       params: { id: uid, pass: upass }
     }).then(response => {
       console.log(" ######## ", response.data[0]);
@@ -89,7 +89,7 @@ class Login extends Component {
       return;
     }
 
-    axios.post('http://localhost:3100/signup/', 
+    axios.post(comm.SERVER_URL+comm.SERVER_PORT+'/signup/', 
        { id: sid, pass: spass, name: sname, smail: smail, phoneNumber:phoneNumber}
     ).then(response => {
       console.log(" res >>>> ", response);
