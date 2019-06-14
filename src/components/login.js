@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, M
 import '../../src/App.css';
 import {withRouter} from 'react-router-dom';  
 import axios from 'axios';
+import comm from './common';
 
 class Login extends Component {
 
@@ -32,6 +33,10 @@ class Login extends Component {
     }));
   }
 
+  componentDidMount(){
+    console.log(" >>>>>> ", comm.SERVER_URL);
+  };
+  
   doLogin = (event) => {
     event.preventDefault()
     let uid = event.target.id.value;
