@@ -55,6 +55,8 @@ class Login extends Component {
           pathname: '/listMeeting',
           state: {name: response.data[0].name, id: response.data[0].mail}
         });
+        localStorage.setItem("name", response.data[0].name);
+        localStorage.setItem("id", response.data[0].mail);
 
     }).catch(exception => {
       console.log(" ex >>>> ", exception);

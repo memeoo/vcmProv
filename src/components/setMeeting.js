@@ -119,14 +119,11 @@ class SetExam extends Component {
         axios.post(comm.SERVER_URL+comm.SERVER_PORT+'/saveMeeting/', data).then(response => {
             console.log(" res text >>>> ", response);
             if (response.status === 200) {
-                console.log(" data @@@ => ", data);
                 this.props.history.push(
                     {
-                      pathname: '/listMeeting',
-                      state: {id: response.data[0].uploader}
-                });
-                console.log(" this.props.history => ", this.props.history);
-
+                        pathname: '/listMeeting',
+                        state: { id: data.uploader, name: localStorage.getItem("name") }
+                    });
             }
         }).catch(exception => {
             console.log(" ex text >>>> ", exception);
@@ -141,6 +138,11 @@ class SetExam extends Component {
             console.log(" res text >>>> ", response);
             if (response.status === 200) {
                 console.log(" data => ", data);
+                this.props.history.push(
+                    {
+                        pathname: '/listMeeting',
+                        state: { id: data.uploader, name: localStorage.getItem("name") }
+                    });
             }
         }).catch(exception => {
             console.log(" ex text >>>> ", exception);
