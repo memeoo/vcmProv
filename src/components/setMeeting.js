@@ -119,7 +119,14 @@ class SetExam extends Component {
         axios.post(comm.SERVER_URL+comm.SERVER_PORT+'/saveMeeting/', data).then(response => {
             console.log(" res text >>>> ", response);
             if (response.status === 200) {
-                console.log(" data => ", data);
+                console.log(" data @@@ => ", data);
+                this.props.history.push(
+                    {
+                      pathname: '/listMeeting',
+                      state: {id: response.data[0].uploader}
+                });
+                console.log(" this.props.history => ", this.props.history);
+
             }
         }).catch(exception => {
             console.log(" ex text >>>> ", exception);
