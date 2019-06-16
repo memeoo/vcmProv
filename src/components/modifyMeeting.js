@@ -128,7 +128,7 @@ class ModifyMeeting extends Component {
         data.mtEtc = this.state.mtEtc;
         data.mtMoney = this.state.mtMoney;
         data.orgPlace = this.state.orgPlace;
-        data.uploader= this.props.location.state.id;
+        data.uploader= localStorage.getItem("id");
 
         data.mtKind = this.state.meetingKind;
         data.mtArea = this.state.meetingArea;
@@ -161,6 +161,11 @@ class ModifyMeeting extends Component {
             console.log(" res text >>>> ", response);
             if (response.status === 200) {
                console.log(" data => ", data);
+               this.props.history.push(
+                {
+                    pathname: '/listMeeting',
+                    state: { id: localStorage.getItem("id"), name: localStorage.getItem("name")}
+                });
             }
         }).catch(exception => {
             console.log(" ex text >>>> ", exception);
@@ -175,6 +180,11 @@ class ModifyMeeting extends Component {
             console.log(" res text >>>> ", response);
             if (response.status === 200) {
                 console.log(" data => ", data);
+                this.props.history.push(
+                    {
+                        pathname: '/listMeeting',
+                        state: { id: localStorage.getItem("id"), name: localStorage.getItem("name")}
+                    });
             }
         }).catch(exception => {
             console.log(" ex text >>>> ", exception);
