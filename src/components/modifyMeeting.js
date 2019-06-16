@@ -58,6 +58,9 @@ class ModifyMeeting extends Component {
         this.setState({selectedEndTime:meeting.endTime})
         this.setState({date:this.getJSDate(meeting.mtDay)})
 
+        this.setState({meetingKind:meeting.mtKind})
+        this.setState({meetingArea:meeting.mtArea})
+
         this.setState({mtId:meeting.mtId})
 
     }
