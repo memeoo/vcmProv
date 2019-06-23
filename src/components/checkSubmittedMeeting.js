@@ -32,7 +32,18 @@ class CheckSubmittedMeeting extends Component {
 
     componentDidMount(){
         console.log(" mtData => ", this.props.location.state.data);
-        // this.setState({mtData:this.props.location.state.data});
+        let provId = this.props.location.state.id;
+        console.log(" id => ", provId);
+        axios.get(comm.SERVER_URL + comm.SERVER_PORT + '/getApplied/', { params: { provId: provId } }).then(res => {
+            console.log(" res => ", res);
+            let applieds = res.data;
+            for (let i = 0; i < applieds.length; i++) {
+                console.log(" applieds => ", applieds[i]);
+                let joined = this.state.meetingApplying.concat(meetings[i]);
+                this.setState({ meetingApplying: joined })
+            }
+            console.log(" meetings meetingDataSaved => ", this.state.meetingApplying);
+        });
 
     }
 

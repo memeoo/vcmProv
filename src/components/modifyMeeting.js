@@ -236,15 +236,15 @@ class ModifyMeeting extends Component {
                 </div>
                 <div className='each-layer'>
                     <Label for="mtCont">공고 내용</Label>
-                    <Input className='inpBox' type='textarea' id="mtCont" name='mtCont' onChange={this.onInputTextChangeHandler}>></Input>
+                    <Input className='inpBox' type='textarea' id="mtCont" name='mtCont' onChange={this.onInputTextChangeHandler}></Input>
                 </div>
                 <div className='each-layer'>
                     <Label for="mtCondition">자격 조건</Label>
-                    <Input className='inpBox' type='textarea' id="mtCondition" name='mtCondition' onChange={this.onInputTextChangeHandler}>></Input>
+                    <Input className='inpBox' type='textarea' id="mtCondition" name='mtCondition' onChange={this.onInputTextChangeHandler}></Input>
                 </div>
                 <div className='each-layer'>
                     <Label for="mtEtc">기타</Label>
-                    <Input className='inpBox' type='textarea' id="mtEtc" name='mtEtc' onChange={this.onInputTextChangeHandler}>></Input>
+                    <Input className='inpBox' type='textarea' id="mtEtc" name='mtEtc' onChange={this.onInputTextChangeHandler}></Input>
                 </div>
                 <div className='each-layer'>
                     <Label>미팅 종류/지역</Label>
