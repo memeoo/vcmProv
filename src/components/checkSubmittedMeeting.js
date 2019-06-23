@@ -8,6 +8,7 @@ import Calendar from 'react-calendar';
 import TimePicker from 'react-times';
 import 'react-times/css/classic/default.css';
 import classnames from 'classnames';
+import comm from './common';
 
 class CheckSubmittedMeeting extends Component {
     
@@ -39,7 +40,7 @@ class CheckSubmittedMeeting extends Component {
             let applieds = res.data;
             for (let i = 0; i < applieds.length; i++) {
                 console.log(" applieds => ", applieds[i]);
-                let joined = this.state.meetingApplying.concat(meetings[i]);
+                let joined = this.state.meetingApplying.concat(applieds[i]);
                 this.setState({ meetingApplying: joined })
             }
             console.log(" meetings meetingDataSaved => ", this.state.meetingApplying);
