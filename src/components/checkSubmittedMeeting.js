@@ -114,20 +114,20 @@ class CheckSubmittedMeeting extends Component {
                             <ListGroup>
                                 {this.state.meetingApplying.map((data,index) =>
                                     <ListGroupItem tag="button" action className='list-card' onClick={(event) => this.responseMeetingApply(index,event)} >
-                                        <ListGroupItemHeading>{data.vcName}</ListGroupItemHeading>
-                                        <ListGroupItemText>{data.vcCompany}</ListGroupItemText>
-                                        <ListGroupItemText>{data.vcPosition}</ListGroupItemText>
+                                        <ListGroupItemHeading>이름: {data.vcName}</ListGroupItemHeading>
+                                        <ListGroupItemText>회사: {data.vcCompany}</ListGroupItemText>
+                                        <ListGroupItemText>직위: {data.vcPosition}</ListGroupItemText>
+                                        <ListGroupItemText>지원 사항: {"\n"}</ListGroupItemText>
                                         <ListGroupItemText>{data.appeal}</ListGroupItemText>
-                                        <ListGroupItemText>{data.vcPosition}</ListGroupItemText>
-                                        <ListGroupItemText>{data.vcEtc}</ListGroupItemText>
-                                        <ListGroupItemText>{data.vcMail}</ListGroupItemText>
-                                        <ListGroupItemText>{data.vcPhoneNum}</ListGroupItemText>
+                                        <ListGroupItemText>기타 사항: {data.vcEtc}</ListGroupItemText>
+                                        <ListGroupItemText>핸드폰: {data.vcPhoneNum}</ListGroupItemText>
+                                        <ListGroupItemText>메일: {data.vcMail}</ListGroupItemText>
                                     </ListGroupItem>)}
                             </ListGroup>
                         </div>
                     </TabPane>
                     <TabPane tabId="2">
-                        {/* <div className="examed-lists">
+                        <div className="examed-lists">
                             <ListGroup>
                                 {this.state.meetingQuestion.map((data,index) =>
                                     <ListGroupItem tag="button" action className='list-card' onClick={(event) => this.responseMeetingQuestion(index, event)} >
@@ -136,7 +136,7 @@ class CheckSubmittedMeeting extends Component {
                                         <ListGroupItemText>{this.getJSDate(data.mtDay)}</ListGroupItemText>
                                     </ListGroupItem>)}
                             </ListGroup>
-                        </div> */}
+                        </div>
                     </TabPane>
                 </TabContent>
                 </div>
