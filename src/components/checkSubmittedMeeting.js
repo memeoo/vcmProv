@@ -8,6 +8,7 @@ import Calendar from 'react-calendar';
 import TimePicker from 'react-times';
 import 'react-times/css/classic/default.css';
 import classnames from 'classnames';
+import comm from './common';
 
 class CheckSubmittedMeeting extends Component {
     
@@ -113,15 +114,20 @@ class CheckSubmittedMeeting extends Component {
                             <ListGroup>
                                 {this.state.meetingApplying.map((data,index) =>
                                     <ListGroupItem tag="button" action className='list-card' onClick={(event) => this.responseMeetingApply(index,event)} >
-                                        <ListGroupItemHeading>{data.mtName}</ListGroupItemHeading>
-                                        <ListGroupItemText>{data.mtContent}</ListGroupItemText>
-                                        <ListGroupItemText>{this.getJSDate(data.mtDay)}</ListGroupItemText>
+                                        <ListGroupItemHeading>{data.vcName}</ListGroupItemHeading>
+                                        <ListGroupItemText>{data.vcCompany}</ListGroupItemText>
+                                        <ListGroupItemText>{data.vcPosition}</ListGroupItemText>
+                                        <ListGroupItemText>{data.appeal}</ListGroupItemText>
+                                        <ListGroupItemText>{data.vcPosition}</ListGroupItemText>
+                                        <ListGroupItemText>{data.vcEtc}</ListGroupItemText>
+                                        <ListGroupItemText>{data.vcMail}</ListGroupItemText>
+                                        <ListGroupItemText>{data.vcPhoneNum}</ListGroupItemText>
                                     </ListGroupItem>)}
                             </ListGroup>
                         </div>
                     </TabPane>
                     <TabPane tabId="2">
-                        <div className="examed-lists">
+                        {/* <div className="examed-lists">
                             <ListGroup>
                                 {this.state.meetingQuestion.map((data,index) =>
                                     <ListGroupItem tag="button" action className='list-card' onClick={(event) => this.responseMeetingQuestion(index, event)} >
@@ -130,7 +136,7 @@ class CheckSubmittedMeeting extends Component {
                                         <ListGroupItemText>{this.getJSDate(data.mtDay)}</ListGroupItemText>
                                     </ListGroupItem>)}
                             </ListGroup>
-                        </div>
+                        </div> */}
                     </TabPane>
                 </TabContent>
                 </div>
